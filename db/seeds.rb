@@ -80,8 +80,6 @@ project4 = Project.create(
   creator_id: user2.id,
   created_at: "14/03/2018"
 )
-
-<<<<<<< HEAD
 project5 = Project.create(
   title: "PorkInn",
   revenue: 6000,

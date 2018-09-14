@@ -31,7 +31,7 @@ class App extends Component {
     return( <div className="App">
         <ReadString
         drizzle={this.props.drizzle}
-        drizzleState = {this.state.drizzleState}
+        drizzleState = {this.props.drizzleState}
         />
         <SetString
         drizzle={this.props.drizzle}

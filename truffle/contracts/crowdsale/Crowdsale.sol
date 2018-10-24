@@ -22,7 +22,7 @@ contract Crowdsale {
   using SafeMath for uint256;
   using SafeERC20 for ERC20;
 
-  GNIToken public inactiveToken_;
+  InactiveToken public inactiveToken_;
   GNIToken public activeToken_;
 
   address public developer;

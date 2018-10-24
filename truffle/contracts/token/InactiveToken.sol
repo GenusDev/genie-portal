@@ -50,7 +50,7 @@ contract InactiveToken is Ownable {
   }
   /* hasMintPermission */
 
-  function mint(
+  /* function mint(
     address _to,
     uint256 _amount
   )
@@ -70,4 +70,4 @@ contract InactiveToken is Ownable {
     emit MintFinished();
     return true;
   }
-} */
+}  */

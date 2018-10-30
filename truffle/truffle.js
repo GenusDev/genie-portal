@@ -16,8 +16,10 @@ require('dotenv').config();
 //
 // var HDWalletProvider = require("truffle-hdwallet-provider");
 
-var infura_apikey = "32d629913620458ea1049490da4906b1";
-var mnemonic = "leaf oak make armed infant basic cup music beauty police urban double";
+// var infura_apikey = "32d629913620458ea1049490da4906b1";
+// var mnemonic = "leaf oak make armed infant basic cup music beauty police urban double";
+
+
 
 
 module.exports = {

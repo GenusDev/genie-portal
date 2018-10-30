@@ -2,6 +2,7 @@ const Token = artifacts.require("Token");
 const InvestorList = artifacts.require("InvestorList");
 const GNITokenCrowdsale = artifacts.require("GNITokenCrowdsale");
 const MyStringStore = artifacts.require("MyStringStore");
+const Dividends = artifacts.require("Dividends");
 
 module.exports = function (deployer, network, accounts) {
     const rate = new web3.BigNumber(50);
@@ -60,13 +61,13 @@ module.exports = function (deployer, network, accounts) {
         //         console.log(err);
         //     })
         // });
-        // .then(() => {
-        //   return deployer.deploy(
-        //     Dividends,
-        //     Token.address,
-        //     GNITokenCrowdsale.address,
-        //     developer,
-        //     InvestorList.address
-        //   );
-        // })
+        .then(() => {
+          return deployer.deploy(
+            Dividends,
+            Token.address,
+            GNITokenCrowdsale.address,
+            developer,
+            InvestorList.address
+          );
+        })
 };

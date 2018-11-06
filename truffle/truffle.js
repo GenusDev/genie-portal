@@ -16,8 +16,11 @@ require('dotenv').config();
 //
 // var HDWalletProvider = require("truffle-hdwallet-provider");
 
-var infura_apikey = "32d629913620458ea1049490da4906b1";
-var mnemonic = "leaf oak make armed infant basic cup music beauty police urban double";
+// var infura_apikey = "32d629913620458ea1049490da4906b1";
+// var mnemonic = "leaf oak make armed infant basic cup music beauty police urban double";
+//
+// MNEMONIC='legend gun agent spatial cycle tail educate crowd draw venue dial start'
+// INFURA_API_KEY=aa56d8693c7f4fc8852b4ece901a4719
 
 
 module.exports = {
@@ -32,9 +35,9 @@ module.exports = {
       gasLimit: 10000000
     },
     ropsten: {
-         provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://ropsten.infura.io/v3/" + process.env.INFURA_API_KEY),
+         provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://ropsten.infura.io/v3/aa56d8693c7f4fc8852b4ece901a4719"),
          network_id: 3,
-         gas: 4500000,
+         gas: 8000000,
          gasPrice: 10000000000
       },
       solc: {

@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.4.25;
 import './utility/SafeMath.sol';
 
 contract InvestorList {
@@ -24,6 +24,8 @@ contract InvestorList {
   function investorCount () external view returns(uint256) {
     return investors.length;
   }
+
+
 
   //make this function only accessible by crowdsale for security
   function addrById (uint256 id) public view returns(address) {

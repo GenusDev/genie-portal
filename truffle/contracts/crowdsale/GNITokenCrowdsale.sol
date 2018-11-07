@@ -1,21 +1,17 @@
-pragma solidity 0.4.24;
+pragma solidity ^0.4.25;
+
 import './TimedCrowdsale.sol';
 import '../utility/SafeMath.sol';
 import '../Project.sol';
 import '../token/ERC20/Token.sol';
-/* import '../InvestorList.sol'; */
+import '../InvestorList.sol';
 
-contract GNITokenCrowdsale is TimedCrowdsale{
+contract GNITokenCrowdsale is TimedCrowdsale {
   using SafeMath for uint256;
   uint256 public totalValuation;
-  /* InvestorList private investorList; */
-  uint256 openingTime = 86400;
-  uint256 doomsDay = 86400 * 240;
-  uint256 rate = 50000000;
-  address developer = 0xEF898fd948F50D5010d3Ec20233faE23D89a1a51;
-  /* Token _token = '0xEF898fd948F50D5010d3Ec20233faE23D89a1a51', */
-  /* InvestorList private investorList; */
-  /* constructor
+  InvestorList private investorList;
+
+  constructor
       (
         uint256 _openingTime,
         uint256 _doomsDay,
@@ -29,8 +25,8 @@ contract GNITokenCrowdsale is TimedCrowdsale{
       TimedCrowdsale(_openingTime, _doomsDay) {
         investorList = InvestorList(_investorList);
         totalValuation = 0;
-  } */
-  /* investorList = InvestorList(_investorList); */
+  }
+
   address[] public projects;
 
   function getInfo(uint256 id) public view returns(
@@ -54,8 +50,8 @@ contract GNITokenCrowdsale is TimedCrowdsale{
  function pitchProject(string _name, uint capitalRequired, uint256 _valuation, string _lat, string _lng) public payable {
    (uint256 developerTokens, uint256 investorTokens) = tokensToMint(_valuation, capitalRequired);
 
-   /* Token(token).mint(developer, developerTokens); */
-   /* Token(token).mint(this, investorTokens); */
+   Token(token).mint(developer, developerTokens);
+   Token(token).mint(this, investorTokens);
 
    totalValuation = totalValuation.add(_valuation);
 
@@ -79,14 +75,14 @@ contract GNITokenCrowdsale is TimedCrowdsale{
    //add require statement that makes sure the projet isnt already active
    require(Project(projects[_projectVotedForId]).open() == true);
    uint256 tokens = buyTokens(msg.sender);
-   /* investorList.handleNewPurchase(_projectVotedForId, tokens, msg.sender); */
+   investorList.handleNewPurchase(_projectVotedForId, tokens, msg.sender);
    Project(projects[_projectVotedForId]).update(tokens);
  }
 
- /* function sellTokens (address to, uint256 tokens) external {
-   /* Token(token).transferActiveTokens(msg.sender, to, tokens); */
-   /* investorList.addVoteCredit(to, tokens); */
- /* }  */
+ function sellTokens (address to, uint256 tokens) external {
+   Token(token).transferActiveTokens(msg.sender, to, tokens);
+   investorList.addVoteCredit(to, tokens);
+ }
 
  function _extendDoomsDay(uint256 _days) internal onlyWhileOpen {
     doomsDay = doomsDay.add(_days.mul(1728000));
@@ -100,7 +96,7 @@ contract GNITokenCrowdsale is TimedCrowdsale{
 
       uint256 developerTokens = project.developerTokens_();
 
-      /* Token(token).activate(developer, developerTokens); */
+      Token(token).activate(developer, developerTokens);
 
       updateInvestors(project.investorTokens_(), projectId);
 
@@ -124,20 +120,18 @@ contract GNITokenCrowdsale is TimedCrowdsale{
   }
 
   function updateInvestors (uint256 tokens, uint256 projectId) private {
-    /* uint256 supply = Token(token).totalInactiveSupply().sub(Token(token).inactiveBalanceOf(developer)); */
-    uint256 supply = 8000;
+    uint256 supply = Token(token).totalInactiveSupply().sub(Token(token).inactiveBalanceOf(developer));
     uint256 activationDivisor = supply.div(tokens);
 
-    /* for (uint256 i = 1; i <= investorList.investorCount(); i = i.add(1)) {
+    for (uint256 i = 1; i <= investorList.investorCount(); i = i.add(1)) {
       address investor = investorList.addrById(i);
-      /* uint256 investorBalance = Token(token).balanceOf(investor); */
-      uint256 investorBalance = 8000;
+      uint256 investorBalance = Token(token).balanceOf(investor);
       uint256 tokensToActivate = investorBalance.div(activationDivisor);
 
-      /* Token(token).activate(investor, tokensToActivate); */
+      Token(token).activate(investor, tokensToActivate);
 
-      /* investorList.transferVoteCredit(i, projectId); */
-    /* } */
+      investorList.transferVoteCredit(i, projectId);
+    }
   }
 
   function forwardFunds (address _to, uint256 amount) internal {

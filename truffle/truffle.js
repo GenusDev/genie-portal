@@ -32,13 +32,12 @@ module.exports = {
       host: "localhost",
       port: 8545,
       network_id: "*", // Match any network id
-      gasLimit: 10000000
+      gasLimit: 9999999999
     },
     ropsten: {
-         provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://ropsten.infura.io/v3/aa56d8693c7f4fc8852b4ece901a4719"),
+         provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://ropsten.infura.io/v3/" + process.env.INFURA_API_KEY),
          network_id: 3,
          gas: 8000000,
-         gasPrice: 10000000000
       },
       solc: {
             optimizer: {

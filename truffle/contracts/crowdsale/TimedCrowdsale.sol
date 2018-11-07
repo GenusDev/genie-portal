@@ -11,8 +11,8 @@ import "./Crowdsale.sol";
 contract TimedCrowdsale is Crowdsale {
   using SafeMath for uint256;
 
-  uint256 public openingTime = 10000;
-  uint256 public doomsDay = 80000;
+  uint256 public openingTime;
+  uint256 public doomsDay;
 
   /**
    * @dev Reverts if not in crowdsale time range.
@@ -31,14 +31,14 @@ contract TimedCrowdsale is Crowdsale {
    * @param _openingTime Crowdsale opening time
    * @param _doomsDay Crowdsale closing time
    */
-  /* constructor(uint256 _openingTime, uint256 _doomsDay) public {
+  constructor(uint256 _openingTime, uint256 _doomsDay) public {
     // solium-disable-next-line security/no-block-members
     require(_openingTime >= block.timestamp);
     require(_doomsDay >= _openingTime);
 
     openingTime = _openingTime;
     doomsDay = _doomsDay;
-  } */
+  }
 
   /**
    * @dev Checks whether the period in which the crowdsale is open has already elapsed.
@@ -54,7 +54,7 @@ contract TimedCrowdsale is Crowdsale {
    * @param _beneficiary Token purchaser
    * @param _weiAmount Amount of wei contributed
    */
-  /* function _preValidatePurchase(
+  function _preValidatePurchase(
     address _beneficiary,
     uint256 _weiAmount
   )
@@ -62,6 +62,6 @@ contract TimedCrowdsale is Crowdsale {
     onlyWhileOpen
   {
     super._preValidatePurchase(_beneficiary, _weiAmount);
-  } */
+  }
 
 }

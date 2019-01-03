@@ -15,6 +15,10 @@ class DoomsdayClock extends React.Component{
     lineChartData = {
    // {project: 'Genus', date: new Date('01-25-2015'), dateExp: new Date('09-25-2015')},
    // {project: 'coolGym', date: new Date('02-25-2015'), dateExp: new Date('10-25-2015')}
+  // todos - data passed in need to be organic - passed as props, do derive state from props
+  // todos - function that takes the end date of one project and maps a line from that going down,               on the same day
+  // CREATE XAXIS
+
   var data1 = [
       {project: 'hammIn', date: new Date('02-15-2015')},
       {project: 'hammIn', date: new Date('11-15-2015')}
@@ -45,8 +49,37 @@ class DoomsdayClock extends React.Component{
       {project: 'votes',   date: new Date('12-01-2015')},
       {project: 'votes',   date: new Date(sleepDate)}
     ];
-  // create scales
 
+
+    //needs to be derived from other data
+    // vertical line creations, need to be done in a function
+    var data5 = [
+      {project: 'hammIn',  date: new Date('11-15-2015')},
+      {project: 'Genus',   date: new Date('11-15-2015')}
+    ];
+
+    var data6 = [
+      {project: 'Genus',  date: new Date('11-20-2015')},
+      {project: 'coolGym',   date: new Date('11-20-2015')}
+    ];
+    var data7 = [
+      {project: 'coolGym',  date: new Date('12-01-2015')},
+      {project: 'votes',   date: new Date('12-01-2015')}
+    ];
+
+    var data8 = [
+      {project: 'votes' ,  date: new Date(sleepDate)},
+      {project: 'x-axis',  date: new Date(sleepDate)}
+    ];
+
+    //draw x-axis
+
+    var data9 = [
+      {project: 'x-axis', date: new Date(timeRangeMin)},
+      {project: 'x-axis', date: new Date(sleepDate)}
+    ];
+
+    // create scales
     const xScale = d3.scaleTime()
                     .domain([timeRangeMin, sleepDate])
                     .range([0,width]);
@@ -62,10 +95,10 @@ class DoomsdayClock extends React.Component{
     // .range(["red", "white", "green"]);
 
     const yScale = d3.scaleBand()
-    .domain(['hammIn', 'Genus', 'coolGym', 'votes'])
+    .domain(['hammIn', 'Genus', 'coolGym', 'votes', 'x-axis'])
     .range([50, height]);
-    // console.log(yScale('hammIn'))
-    console.log(xScale(sleepDate))
+    console.log(yScale('x-axis'))
+    // console.log(xScale(sleepDate))
   // const xScale = d3.scaleTime().range([0, width])
   // const yScale = d3.scaleLinear().range([height, 0])
 
@@ -79,23 +112,46 @@ class DoomsdayClock extends React.Component{
   const lineGenerator = d3.line()
       .x(d => xScale(d.date));
       // .y(d => yScale('hammIn'));
-
+  // const verticalLineGenerator = d3.line()
+  //     .x(
+  // const xAxis = d3.line()
+  //     .x(d =>
   return [
     {
       fill: '#5DBCD2',
-      path: lineGenerator.y(d => yScale('hammIn'))(data1)
+      path: lineGenerator.y(d => yScale(d.project))(data1)
     },
     {
       fill: '#5DBCD2',
-      path: lineGenerator.y(d => yScale('Genus'))(data2)
+      path: lineGenerator.y(d => yScale(d.project))(data2)
     },
     {
       fill: '#5DBCD2',
-      path: lineGenerator.y(d => yScale('coolGym'))(data3)
+      path: lineGenerator.y(d => yScale(d.project))(data3)
     },
     {
       fill: '#f48f42',
       path: lineGenerator.y(d => yScale('votes'))(data4)
+    },
+     {
+      fill: '#5DBCD2',
+      path: lineGenerator.y(d => yScale(d.project))(data5)
+    },
+    {
+      fill: '#5DBCD2',
+      path: lineGenerator.y(d => yScale(d.project))(data6)
+    },
+    {
+      fill: '#5DBCD2',
+      path: lineGenerator.y(d => yScale(d.project))(data7)
+    },
+    {
+      fill: '#f48f42',
+      path: lineGenerator.y(d => yScale(d.project))(data8)
+    },
+    {
+      fill: '#003366',
+      path: lineGenerator.y(d => yScale(d.project))(data9)
     }
   ]
 }

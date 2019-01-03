@@ -7,6 +7,7 @@ import ReadStringContainer from './readStringContainer';
 import SetString from './setString';
 import {drizzleConnect} from 'drizzle-react'; //remove?
 import PropTypes from 'prop-types';
+import DoomsDayDetail from '../footer/dooms_day_detail';
 
 const Dashboard = () => {
   return (
@@ -15,6 +16,7 @@ const Dashboard = () => {
       <ProjectDashboardContainer />
       <DrizzleConsumer component={ReadString}/>
       <DrizzleConsumer component={SetString}/>
+      <DoomsDayDetail />
     </div>
   );
 };

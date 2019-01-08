@@ -11,6 +11,26 @@ contract ActivatableToken is MintableToken {
   constructor (InvestorList _investorList) public {
     investorList = InvestorList(_investorList);
   }
+  //still need to test this new functionality
+  struct InactiveTokenCycle {
+    mapping(address => bool) updated;
+  }
+
+  uint256 internal currentInactiveTokenCycle;
+  mapping(uint256 => InactiveTokenCycle) internal inactiveTokenCycle;
+
+  //should only be callable by the crowdsale
+  function resetInactiveTokenCycle (address developer) {
+    totalSupply_ = totalSupply_.sub(totalInactiveSupply());
+    currentInactiveTokenCycle = currentInactiveTokenCycle.add(1);
+
+    InactiveTokenCycle memory newInactiveTokenCycle;
+    inactiveTokenCycle[currentInactiveTokenCycle] = newInactiveTokenCycle;
+
+    /* balances[msg.sender].total = 0; */
+    updateAccountCycle(msg.sender);
+    updateAccountCycle(developer);
+  }
 
   function initializeDividendWallet(address _dividendWallet) public onlyOwner {
     dividendWallet = _dividendWallet;
@@ -28,12 +48,28 @@ contract ActivatableToken is MintableToken {
     return totalSupply_.sub(totalActiveSupply_);
   }
 
+  function balanceOf(address _who) public view returns (uint256) {
+    if (
+      currentInactiveTokenCycle == 0 ||
+      accountCycleUpdated(_who)
+      ) {
+        return balances[_who].active.add(balances[_who].inactive);
+      }
+      return activeBalanceOf(_who);
+  }
+
   function activeBalanceOf(address account) public view returns (uint256) {
-    return activeBalances[account];
+    return balances[account].active;
   }
 
   function inactiveBalanceOf(address account) public view returns (uint256) {
-    return balances[account].sub(activeBalances[account]);
+    if (
+      currentInactiveTokenCycle == 0 ||
+      accountCycleUpdated(account)
+      ) {
+        return balances[account].inactive;
+      }
+      return 0;
   }
 
   mapping(address => uint256) internal lastActivationPoints;
@@ -49,7 +85,8 @@ contract ActivatableToken is MintableToken {
     require(inactiveBalanceOf(account) >= amount);
     distributeOwedDividend(account);
 
-    activeBalances[account] = activeBalances[account].add(amount);
+    balances[account].inactive = balances[account].inactive.sub(amount);
+    balances[account].active = balances[account].active.add(amount);
     totalActiveSupply_ = totalActiveSupply_.add(amount);
   }
 
@@ -77,14 +114,30 @@ contract ActivatableToken is MintableToken {
   function transferInactive(address _to, uint256 _value) external onlyOwner {
     require(inactiveBalanceOf(msg.sender) >= _value);
     super.transfer(_to, _value);
+
+    if (!accountCycleUpdated(_to)) {
+      updateAccountCycle(_to);
+    }
+
+    balances[msg.sender].inactive = balances[msg.sender].inactive.sub(_value);
+    balances[_to].inactive = balances[_to].inactive.add(_value);
   }
 
   function transferActive(address _from, address _to, uint256 _value) internal {
-    activeBalances[_to] = activeBalances[_to].add(_value);
-    activeBalances[_from] = activeBalances[_from].sub(_value);
+    balances[_from].active = balances[_from].active.sub(_value);
+    balances[_to].active = balances[_to].active.add(_value);
 
     investorList.addInvestor(_to);
     investorList.removeVoteCredit(_from, _value);
     investorList.addVoteCredit(_to, _value);
+  }
+
+  function updateAccountCycle (address account) internal {
+    balances[account].inactive = 0;
+    inactiveTokenCycle[currentInactiveTokenCycle].updated[account] = true;
+  }
+
+  function accountCycleUpdated (address account) internal returns (bool) {
+    return inactiveTokenCycle[currentInactiveTokenCycle].updated[account] == true;
   }
 }

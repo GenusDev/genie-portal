@@ -284,5 +284,3 @@ class VotesGraph extends React.Component {
 }
 
 export default connect(mapStateToProps)(VotesGraph);
-
-

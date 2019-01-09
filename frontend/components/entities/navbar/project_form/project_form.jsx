@@ -10,9 +10,6 @@ import { formatProjectData, processCashData } from '../../../../util/project_api
 import DropPinModal from './drop_pin_modal/drop_pin_modal';
 import { merge } from 'lodash';
 import PolyModal from './poly_modal/poly_modal';
-import './project_modal.scss';
-import './geoContainer.scss';
-import './projectPitchMod.scss';
 
 class ProjectForm extends React.Component {
 
@@ -202,8 +199,9 @@ class ProjectForm extends React.Component {
 
   calculateTotalCapitalDeployed(){
     let capital = 0;
+    
     Object.values(this.props.projects).forEach((project) => {
-      if(project.cashflow){
+      if (project.cashflow) {
         let jsonProjectCashflow = processCashData(project.cashflow);
         if (jsonProjectCashflow["1"]) {
           let quarters = Object.keys(jsonProjectCashflow).sort();
@@ -214,6 +212,7 @@ class ProjectForm extends React.Component {
         }
       }
     });
+
     return capital;
   }
 

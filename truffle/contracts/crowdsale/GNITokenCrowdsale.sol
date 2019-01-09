@@ -139,7 +139,7 @@ contract GNITokenCrowdsale is TimedCrowdsale {
  /* uint256 public totalVotesCast; */
 
 //tests need to be modified for all voting functions
-//needs to be callable only by the developer
+//needs to be callable only by the developer dd
 function voteForProject(address _project, address _voter, uint256 votes, bytes _signedMessage) public {
   bytes32 unsignedMessage = voteHash[_project];
   authenticateVoter(_signedMessage, _voter, unsignedMessage);

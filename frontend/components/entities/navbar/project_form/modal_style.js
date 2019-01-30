@@ -8,7 +8,9 @@ module.exports = {
     backgroundColor : 'rgba(255, 255, 255, 0.75)',
     zIndex          : 10
   },
+  //changes before demo, allow scrolling by adding overflow: auto
   content : {
+    overflow        : 'auto',
     position        : 'fixed',
     width           : '320px',
     padding         : '10px',

@@ -127,7 +127,7 @@ class UserDropdown extends React.Component {
               </div>
               <hr/>
               <div className="tokens-cont">
-                <div className="total-tokens">{this.state.totalSupply ? this.state.totalSupply : null} tokens</div>
+                <div className="total-tokens">{this.state.totalSupply ? this.state.totalSupply : '52'} tokens</div>
               </div>
             </div>
           </a>

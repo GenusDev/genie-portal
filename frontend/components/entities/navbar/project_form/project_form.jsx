@@ -35,7 +35,7 @@ class ProjectForm extends React.Component {
         accum_actual_cashflow: '',
         projected_cashflow: '',
         revenue: .1,
-        description: 'hkopt'
+        description: 'input text'
       },
       icon: '',
       imageUrl: '',
@@ -529,9 +529,6 @@ class ProjectForm extends React.Component {
 
         {this.renderLatLngErrors(this.state.drop_pin_clicked)}
 
-            <div className="style2">{"$" + this.state.projectData.valuation}</div>
-            <div className="style2">{"$" + this.state.projectData.capital_required}</div>
-            <span>capital <br />  required</span>
         <div className="form-box-container">
           <h1 className="form-box-title with-border">HOW MUCH MONEY WILL IT MAKE?</h1>
           <div className="form-box-border-layer">

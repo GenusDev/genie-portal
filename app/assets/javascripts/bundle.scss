@@ -245,14 +245,17 @@
     margin: 6px 0;
     display: flex;
     justify-content: space-between;
-    align-items: center; }
+    align-items: center;
+    color: #b3b3b3; }
+  .rates-box .rates-box .coins {
+    color: #b3b3b3; }
   .rates-box .style2 {
     background: none;
     border: 1px solid #939DA6;
     width: 50px;
     height: 25px;
     min-width: 30px;
-    color: white;
+    color: #b3b3b3;
     display: flex;
     align-items: center;
     justify-content: center; }

@@ -331,11 +331,18 @@ $cornerSize: 5px;
     align-items: center;
   }
 
-  .cap-row{
+  //added styling before demo
+
+  .cap-row {
     margin: 6px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #b3b3b3;
+  }
+
+  .rates-box .coins{
+    color: #b3b3b3;
   }
 
   .style2 {
@@ -344,7 +351,8 @@ $cornerSize: 5px;
     width: 50px;
     height: 25px;
     min-width: 30px;
-    color: white;
+    // color: white;
+    color: #b3b3b3;
     display: flex;
     align-items: center;
     justify-content: center;

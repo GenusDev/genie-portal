@@ -9,6 +9,7 @@ module.exports = {
     // zIndex          : 10
   },
   content : {
+    overflow        : 'auto',
     position        : 'fixed',
     top             : '5%',
     left            : '10%',

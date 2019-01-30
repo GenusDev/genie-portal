@@ -4,13 +4,17 @@
 .ft-el-cont {
   display: flex;
   flex-direction: column;
+  margin-top: 4%;
   p {
     margin: 0 280px 10px;
     strong {
       color: $white;
     }
   }
-
+.ft-modal-body.strategy-body{
+  display: flex;
+  flex-direction: column;
+}
   .ft-el-header {
     font-size: $font-md;
     font-weight: 1000;
@@ -33,8 +37,8 @@
 
 // strategy specific
 .strategy-video {
-  width: 75%;
-  height: 100%;
+  width: 300px;
+  height: 300px;
   border: 5px solid $white;
   margin-top: 20px;
 }
@@ -72,12 +76,16 @@
   flex-direction: column;
   width: 100px;
   border-radius: 0 10px 10px 0px;
+  // position: absolute; 
   &:hover {
     cursor: pointer;
   }
   &.active-dropdown{
   background-color: $tanTransparent;
   height: 190px;
+  // position: absolute;
+  // top: 100px;
+  // left: 0;
   }
   & > ul{
     position: relative;
@@ -120,4 +128,12 @@
       border-radius: 0 15px 15px 0;
     }
   }
+}
+
+
+//bylaws container
+.ft-modal-body.bylaws-body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

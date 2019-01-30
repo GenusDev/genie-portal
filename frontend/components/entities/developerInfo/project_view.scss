@@ -27,7 +27,15 @@
   }
 }
 
+.ft-modal-body.strategy-body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .ReactModal__Content.ReactModal__Content--after-open.modal-container.strategy-container {
+  overflow: auto;
+}
+.ReactModal__Content ReactModal__Content--after-open modal-container{
   overflow: auto;
 }
 .doomsday-style {

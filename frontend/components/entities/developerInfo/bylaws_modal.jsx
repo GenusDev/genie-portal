@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import ModalStyle from './modal_style';
+import './project_view.scss';
 
 class BylawsModal extends React.Component {
 
@@ -24,18 +25,21 @@ class BylawsModal extends React.Component {
   openModal(e) {
     e.stopPropagation();
     this.setState({ openModal: true });
-    this.props.toggleOpen('BylawsModalToggle');
+    this.props.toggleOpen('BylawsButtonToggle');
   }
 
   closeModal() {
-    this.setState({ openModal: false });
-    this.props.toggleClose('BylawsModalToggle');
+    this.setState({ openModal: false }, () => {
+      this.props.toggleClose('BylawsButtonToggle');
+    });
+    // this.setState({ openModal: false });
+    // this.props.toggleClose('BylawsButtonToggle');
   }
 
   render() {
     return(
-      <div>
-        <div className="bylaw-button overSubButtonText" onClick={this.openModal}>BYLAWS</div>
+      <div className={this.props.activeBylawsModal} onClick={this.openModal}>
+        <div className="bylaw-button overSubButtonText">BYLAWS</div>
         <Modal
           isOpen={this.state.openModal}
           onRequestClose={this.closeModal}

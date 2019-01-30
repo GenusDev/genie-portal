@@ -9,8 +9,8 @@ class DeveloperInfo extends React.Component {
   
     this.state = {
       DeveloperInfoButtonToggle: false,
-      BylawsModalToggle: false,
-      StrategyModalToggle: false,
+      BylawsButtonToggle: false,
+      StrategyButtonToggle: false,
       AboutToggle: false
     };
     // this.toggle = this.toggle.bind(this);
@@ -21,11 +21,11 @@ class DeveloperInfo extends React.Component {
   }
   toggleClose(modalToggle){
     switch (modalToggle) {
-      case 'BylawsModalToggle':
-        this.setState({ BylawsModalToggle: false, DeveloperInfoButtonToggle: false });
+      case 'BylawsButtonToggle':
+        this.setState({ BylawsButtonToggle: false, DeveloperInfoButtonToggle: false });
         break;
-      case 'StrategyModalToggle':
-        this.setState({ StrategyModalToggle: false, DeveloperInfoButtonToggle: false });
+      case 'StrategyButtonToggle':
+        this.setState({ StrategyButtonToggle: false, DeveloperInfoButtonToggle: false });
         break;
       case 'AboutToggle':
         this.setState({ AboutToggle: false, DeveloperInfoButtonToggle: false });
@@ -36,11 +36,11 @@ class DeveloperInfo extends React.Component {
   }
   toggleOpen(modalToggle){
     switch (modalToggle) {
-      case 'BylawsModalToggle':
-        this.setState({ BylawsModalToggle: true });
+      case 'BylawsButtonToggle':
+        this.setState({ BylawsButtonToggle: true });
         break;
-      case 'StrategyModalToggle':
-        this.setState({ StrategyModalToggle: true });
+      case 'StrategyButtonToggle':
+        this.setState({ StrategyButtonToggle: true });
         break;
       case 'AboutToggle':
         this.setState({ AboutToggle: true });
@@ -54,19 +54,21 @@ class DeveloperInfo extends React.Component {
   }
 
   render() {
-    const { DeveloperInfoButtonToggle, BylawsModalToggle, StrategyModalToggle, AboutToggle } = this.state;
+    const { DeveloperInfoButtonToggle, BylawsButtonToggle, StrategyButtonToggle, AboutToggle } = this.state;
 
     let activeDropdown = DeveloperInfoButtonToggle === true ? 'active-dropdown' : '';
-    let activeStrategyModal = StrategyModalToggle ? 'modal-active' : '';
-    let activeBylawsModal = BylawsModalToggle ? 'modal-active' : '';
+    let activeStrategyModal = StrategyButtonToggle ? 'modal-active' : '';
+    let activeBylawsModal = BylawsButtonToggle ? 'modal-active' : '';
+
+    console.log(activeStrategyModal)
 
     const showSidebarOptions = DeveloperInfoButtonToggle === true ?
       <React.Fragment>
         <li className={`${activeDropdown} strategy`}>
-          <div className={activeStrategyModal}><StrategyModal toggleOpen={this.toggleOpen} toggleClose={this.toggleClose} /></div>
+          <StrategyModal activeStrategyModal={activeStrategyModal} toggleOpen={this.toggleOpen} toggleClose={this.toggleClose} />
         </li>
         <li className={`${activeDropdown} bylaws ${activeBylawsModal}`}>
-          <div className={activeBylawsModal}><BylawsModal toggleOpen={this.toggleOpen} toggleClose={this.toggleClose} /></div>
+          <BylawsModal activeBylawsModal={activeBylawsModal} toggleOpen={this.toggleOpen} toggleClose={this.toggleClose} />
         </li>
         <li className={`${activeDropdown} about`}>
           <div>ABOUT</div>
